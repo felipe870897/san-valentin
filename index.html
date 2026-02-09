@@ -6,22 +6,25 @@
 <title>¿Puedo ser tu San Valentín?</title>
 
 <style>
-body {
+/* 1. Ajuste base para permitir el scroll */
+html, body {
   margin: 0;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #ffc1e5, #ff5fb8);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  /* Cambiado para permitir scroll vertical si el contenido es largo */
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
   overflow-x: hidden;
-  overflow-y: auto;
+  /* Quitamos el flex del body para que no bloquee el scroll */
+  background: linear-gradient(135deg, #ffc1e5, #ff5fb8) fixed;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+/* 2. Corazones fijos al fondo */
 .hearts {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 1;
 }
@@ -38,26 +41,38 @@ body {
   50% { transform: scale(1.35); opacity: 1; }
 }
 
+/* 3. Contenedor principal que permite bajar */
+.main-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
 .card {
   background: rgba(255,255,255,0.92);
   border-radius: 28px;
-  padding: 36px;
+  padding: 30px;
   max-width: 420px;
-  width: 90%;
+  width: 100%;
   text-align: center;
   box-shadow: 0 24px 70px rgba(0,0,0,0.25);
-  z-index: 2;
-  margin: 20px;
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 26px;
   margin-bottom: 14px;
+  color: #d63384;
 }
 
 p {
   font-size: 16px;
-  line-height: 1.75;
+  line-height: 1.7;
   margin-bottom: 26px;
 }
 
@@ -74,7 +89,7 @@ button {
   font-weight: 600;
   border-radius: 999px;
   cursor: pointer;
-  transition: transform 0.25s ease;
+  transition: transform 0.2s;
 }
 
 .yes {
@@ -86,40 +101,32 @@ button {
   background: rgba(255,255,255,0.75);
 }
 
-.final {
-  display: none;
-  /* Cambiado a absolute y auto para que se pueda bajar con el dedo */
-  position: absolute;
-  top: 0;
-  left: 0;
+/* 4. Pantalla final */
+#final {
+  display: none; /* Se activa con el botón Sí */
   width: 100%;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #ffb6e9, #ff5fb8);
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-  padding: 40px 0;
+  max-width: 440px;
+  margin: auto;
 }
 
 .final-card {
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.95);
   backdrop-filter: blur(10px);
   border-radius: 28px;
-  padding: 34px;
-  max-width: 440px;
-  width: 92%;
+  padding: 30px;
   text-align: center;
   box-shadow: 0 24px 70px rgba(0,0,0,0.35);
-  margin: auto;
 }
 
 .final-card img {
   width: 100%;
-  max-width: 280px;
+  max-width: 250px;
   height: auto;
   border-radius: 20px;
-  margin-bottom: 18px;
-  object-fit: cover;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
 </head>
@@ -128,74 +135,67 @@ button {
 
 <div class="hearts" id="hearts"></div>
 
-<div class="card" id="card">
-  <h1>¿Puedo ser tu San Valentín? ❣️</h1>
-
-  <p>
-    No es una pregunta cualquiera.  
-    Es algo que nace desde lo más sincero de mi corazón.  
-    De verdad quiero estar con vos, compartir momentos, cuidarte y hacerte sentir lo especial que sos para mí.  
-    Espero con todo mi corazón que tu respuesta sea un sí ❣️
-  </p>
-
-  <div class="buttons">
-    <button class="yes" onclick="answerYes()">Sí ❣️</button>
-    <button class="no" id="noBtn">No</button>
-  </div>
-</div>
-
-<div class="final" id="final">
-  <div class="final-card">
-
-    <img src="foto-sanvalentin.png" alt="Nosotros">
-
-    <h1>Gracias por aceptar ser mi San Valentín ❣️</h1>
-
+<div class="main-container">
+  
+  <div class="card" id="card">
+    <h1>¿Puedo ser tu San Valentín? ❣️</h1>
     <p>
-      Mi pequeña tenista, mi princesita, mi bebita, mi gordita… mi todo.  
-      <br><br>
-      Antes que nada quiero pedirte perdón por las cosas malas que hice, por mis errores y por los momentos en los que no supe cuidarte como merecías.  
-      Jamás quise lastimarte, y aprender de eso es algo que llevo muy en serio en el corazón.
-      <br><br>
-      Hoy lo único que quiero es ser tu San Valentín, elegirte todos los días, hacerte reír, abrazarte fuerte y demostrarte con hechos todo lo que siento por vos.  
-      Quiero que la pases increíble, que te sientas amada, segura y feliz a mi lado.
-      <br><br>
-      Gracias por decir que sí.  
-      Te amo muchísimo, mi gordita hermosa ❣️
+      No es una pregunta cualquiera. Es algo que nace desde lo más sincero de mi corazón. De verdad quiero estar con vos, compartir momentos, cuidarte y hacerte sentir lo especial que sos para mí. Espero con todo mi corazón que tu respuesta sea un sí ❣️
     </p>
-
+    <div class="buttons">
+      <button class="yes" onclick="answerYes()">Sí ❣️</button>
+      <button class="no" id="noBtn">No</button>
+    </div>
   </div>
+
+  <div id="final">
+    <div class="final-card">
+      <img src="foto-sanvalentin.png" alt="Nosotros">
+      <h1>Gracias por aceptar ❣️</h1>
+      <p>
+        Mi pequeña tenista, mi princesita, mi bebita, mi gordita… mi todo.
+        <br><br>
+        Antes que nada quiero pedirte perdón por las cosas malas que hice, por mis errores y por los momentos en los que no supe cuidarte como merecías. Jamás quise lastimarte, y aprender de eso es algo que llevo muy en serio en el corazón.
+        <br><br>
+        Hoy lo único que quiero es ser tu San Valentín, elegirte todos los días, hacerte reír, abrazarte fuerte y demostrarte con hechos todo lo que siento por vos. Quiero que la pases increíble, que te sientas amada, segura y feliz a mi lado.
+        <br><br>
+        Gracias por decir que sí. Te amo muchísimo, mi gordita hermosa ❣️
+      </p>
+    </div>
+  </div>
+
 </div>
 
 <script>
-const hearts = document.getElementById("hearts");
-for (let i = 0; i < 18; i++) {
+// Corazones flotantes
+const heartsContainer = document.getElementById("hearts");
+for (let i = 0; i < 20; i++) {
   const h = document.createElement("div");
   h.className = "heart";
   h.textContent = "❣️";
   h.style.left = Math.random() * 100 + "%";
   h.style.top = Math.random() * 100 + "%";
   h.style.animationDelay = Math.random() * 2 + "s";
-  hearts.appendChild(h);
+  heartsContainer.appendChild(h);
 }
 
+// Lógica del botón NO
 let scale = 1;
 const noBtn = document.getElementById("noBtn");
-
 noBtn.addEventListener("click", () => {
   scale -= 0.15;
-  if (scale <= 0.25) {
+  if (scale <= 0.3) {
     noBtn.style.pointerEvents = "none";
     noBtn.textContent = "❣️";
   }
-  noBtn.style.transform = `scale(${Math.max(scale,0.25)})`;
+  noBtn.style.transform = `scale(${Math.max(scale, 0.3)})`;
 });
 
+// Lógica del botón SÍ
 function answerYes() {
   document.getElementById("card").style.display = "none";
-  document.getElementById("final").style.display = "flex";
-  // Esto hace que la página vuelva arriba al mostrar la carta final
-  window.scrollTo(0, 0);
+  document.getElementById("final").style.display = "block";
+  window.scrollTo(0, 0); // Vuelve arriba para empezar a leer
 }
 </script>
 
