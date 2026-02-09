@@ -14,13 +14,16 @@ body {
   align-items: center;
   background: linear-gradient(135deg, #ffc1e5, #ff5fb8);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  overflow: hidden;
+  /* Cambiado para permitir scroll vertical si el contenido es largo */
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .hearts {
   position: fixed;
   inset: 0;
   pointer-events: none;
+  z-index: 1;
 }
 
 .heart {
@@ -44,6 +47,7 @@ body {
   text-align: center;
   box-shadow: 0 24px 70px rgba(0,0,0,0.25);
   z-index: 2;
+  margin: 20px;
 }
 
 h1 {
@@ -84,11 +88,17 @@ button {
 
 .final {
   display: none;
-  position: fixed;
-  inset: 0;
+  /* Cambiado a absolute y auto para que se pueda bajar con el dedo */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
   background: linear-gradient(135deg, #ffb6e9, #ff5fb8);
   justify-content: center;
   align-items: center;
+  z-index: 10;
+  padding: 40px 0;
 }
 
 .final-card {
@@ -100,13 +110,16 @@ button {
   width: 92%;
   text-align: center;
   box-shadow: 0 24px 70px rgba(0,0,0,0.35);
+  margin: auto;
 }
 
 .final-card img {
-  width: 70%;
+  width: 100%;
   max-width: 280px;
+  height: auto;
   border-radius: 20px;
   margin-bottom: 18px;
+  object-fit: cover;
 }
 </style>
 </head>
@@ -134,7 +147,7 @@ button {
 <div class="final" id="final">
   <div class="final-card">
 
-    <img src=foto-sanvalentin.png alt="Nosotros">
+    <img src="foto-sanvalentin.png" alt="Nosotros">
 
     <h1>Gracias por aceptar ser mi San Valentín ❣️</h1>
 
@@ -181,9 +194,10 @@ noBtn.addEventListener("click", () => {
 function answerYes() {
   document.getElementById("card").style.display = "none";
   document.getElementById("final").style.display = "flex";
+  // Esto hace que la página vuelva arriba al mostrar la carta final
+  window.scrollTo(0, 0);
 }
 </script>
 
 </body>
 </html>
-
